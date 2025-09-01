@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 
+// These can be kept for the dropdowns
 const years = ["FE", "SE", "TE", "BE"];
 const branches = [
   "COMPUTER ENGINEERING(COMPS)",
@@ -10,49 +11,57 @@ const branches = [
   "ELECTRONICS AND TELECOMMUNICATION(EXTC)",
 ];
 
-function TeamRegistration() {
+function ValorantRegistration() {
   const [formData, setFormData] = useState({
-    teamName: "",
+    partyName: "",
     leaderName: "",
     leaderYear: "",
     leaderBranch: "",
     leaderEmail: "",
     leaderPhone: "",
-    players: Array(3).fill({ name: "", year: "", branch: "" }),
+    players: Array(4).fill(""), // 4 players, name only
+    paymentScreenshot: null,
+    transactionId: "",
   });
 
   const [errors, setErrors] = useState({});
 
-  const handleChange = (e, playerIndex = null, field = null) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    if (playerIndex !== null && field !== null) {
-      const newPlayers = [...formData.players];
-      newPlayers[playerIndex] = { ...newPlayers[playerIndex], [field]: value };
-      setFormData({ ...formData, players: newPlayers });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handlePlayerChange = (e, index) => {
+    const newPlayers = [...formData.players];
+    newPlayers[index] = e.target.value;
+    setFormData((prevData) => ({ ...prevData, players: newPlayers }));
+  };
+
+  const handleFileChange = (e) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      paymentScreenshot: e.target.files[0],
+    }));
   };
 
   const validate = () => {
-    // ... your validation logic remains the same
     const newErrors = {};
-    if (!formData.teamName) newErrors.teamName = "Team name required";
-    if (!formData.leaderName) newErrors.leaderName = "Leader name required";
-    if (!formData.leaderYear) newErrors.leaderYear = "Year required";
-    if (!formData.leaderBranch) newErrors.leaderBranch = "Branch required";
-    if (!formData.leaderEmail) newErrors.leaderEmail = "Email required";
-    else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.leaderEmail))
-      newErrors.leaderEmail = "Invalid email";
-    if (!formData.leaderPhone) newErrors.leaderPhone = "Phone required";
-    else if (!/^\d{10}$/.test(formData.leaderPhone))
+    if (!formData.partyName) newErrors.partyName = "Party name is required";
+    if (!formData.leaderName) newErrors.leaderName = "Leader name is required";
+    if (!formData.leaderEmail) newErrors.leaderEmail = "Email is required";
+    if (!/^\d{10}$/.test(formData.leaderPhone))
       newErrors.leaderPhone = "Phone must be 10 digits";
 
     formData.players.forEach((player, idx) => {
-      if (!player.name) newErrors[`player${idx}Name`] = "Name required";
-      if (!player.year) newErrors[`player${idx}Year`] = "Year required";
-      if (!player.branch) newErrors[`player${idx}Branch`] = "Branch required";
+      if (!player)
+        newErrors[`player${idx}`] = `Player ${idx + 1} name is required`;
     });
+
+    if (!formData.paymentScreenshot)
+      newErrors.paymentScreenshot = "Payment screenshot is required";
+    if (!formData.transactionId)
+      newErrors.transactionId = "Transaction ID is required";
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -60,62 +69,182 @@ function TeamRegistration() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      alert("Form submitted!");
+      console.log("Form Submitted:", formData);
+      alert("Registration successful!");
     }
   };
 
   return (
-    // This is the new wrapper div that centers everything
     <div className="page-container">
-      <div className="registration-container">
-        <header className="header">
-          <img className="logo" src="/logo.png" alt="Logo" />
-          <h2>HOW TO REGISTER</h2>
-          <ul className="register-steps">
-            <li>Step 1:Enter your team name.</li>
-            <li>
-              Step 2:Fill in the Team Leader's details (Name, Email, Phone,
-              Year, Branch).
-            </li>
-            <li>
-              Step 3Enter details for 3 additional team members (Name, Year,
-              Branch).
-            </li>
-            <li>Step 4Click "Register Team".</li>
-          </ul>
-        </header>
+      <form
+        className="registration-container"
+        onSubmit={handleSubmit}
+        noValidate
+      >
+        {/* This img tag now has the correct className to apply sizing */}
+        <img src="/logo.png" alt="Event Logo" className="logo" />
 
-        <section className="team-info">
-          <h2>TEAM INFORMATION</h2>
-          <form onSubmit={handleSubmit} noValidate>
-            {/* The rest of your form JSX remains exactly the same... */}
-            <div className="team-name-section">
-              <label>TEAM NAME</label>
+        <h1 className="form-title">Valorant Registration</h1>
+
+        <fieldset>
+          <legend>Leader Details</legend>
+          <div className="form-grid">
+            <div className="form-group full-width">
+              <label htmlFor="partyName">Party Name</label>
               <input
+                id="partyName"
+                name="partyName"
                 type="text"
-                name="teamName"
-                value={formData.teamName}
+                value={formData.partyName}
                 onChange={handleChange}
               />
-              {errors.teamName && (
-                <span className="error">{errors.teamName}</span>
+              {errors.partyName && (
+                <span className="error">{errors.partyName}</span>
               )}
             </div>
+            <div className="form-group">
+              <label htmlFor="leaderName">Name</label>
+              <input
+                id="leaderName"
+                name="leaderName"
+                type="text"
+                value={formData.leaderName}
+                onChange={handleChange}
+              />
+              {errors.leaderName && (
+                <span className="error">{errors.leaderName}</span>
+              )}
+            </div>
+            <div className="form-group">
+              <label htmlFor="leaderPhone">Phone</label>
+              <input
+                id="leaderPhone"
+                name="leaderPhone"
+                type="tel"
+                value={formData.leaderPhone}
+                onChange={handleChange}
+              />
+              {errors.leaderPhone && (
+                <span className="error">{errors.leaderPhone}</span>
+              )}
+            </div>
+            <div className="form-group">
+              <label htmlFor="leaderYear">Year</label>
+              <select
+                id="leaderYear"
+                name="leaderYear"
+                value={formData.leaderYear}
+                onChange={handleChange}
+              >
+                <option value="">Select Year</option>
+                {years.map((y) => (
+                  <option key={y} value={y}>
+                    {y}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="leaderBranch">Branch</label>
+              <select
+                id="leaderBranch"
+                name="leaderBranch"
+                value={formData.leaderBranch}
+                onChange={handleChange}
+              >
+                <option value="">Select Branch</option>
+                {branches.map((b) => (
+                  <option key={b} value={b}>
+                    {b}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group full-width">
+              <label htmlFor="leaderEmail">Email</label>
+              <input
+                id="leaderEmail"
+                name="leaderEmail"
+                type="email"
+                value={formData.leaderEmail}
+                onChange={handleChange}
+              />
+              {errors.leaderEmail && (
+                <span className="error">{errors.leaderEmail}</span>
+              )}
+            </div>
+          </div>
+        </fieldset>
 
-            <fieldset className="leader-details">
-              {/* ... leader fields ... */}
-            </fieldset>
+        <fieldset>
+          <legend>Party Details</legend>
+          <div className="form-grid">
+            {formData.players.map((player, index) => (
+              <div className="form-group" key={index}>
+                <label htmlFor={`player${index}`}>
+                  Player {index + 1} Name
+                </label>
+                <input
+                  id={`player${index}`}
+                  name={`player${index}`}
+                  type="text"
+                  value={player}
+                  onChange={(e) => handlePlayerChange(e, index)}
+                />
+                {errors[`player${index}`] && (
+                  <span className="error">{errors[`player${index}`]}</span>
+                )}
+              </div>
+            ))}
+          </div>
+        </fieldset>
 
-            <fieldset className="players-details">
-              {/* ... players fields ... */}
-            </fieldset>
+        <fieldset>
+          <legend>Payment</legend>
+          <div className="payment-section">
+            <div className="qr-container">
+              <img
+                src="/qr-code.png"
+                alt="QR Code for payment"
+                className="qr-code"
+              />
+              <p>Scan to pay</p>
+            </div>
+            <div className="payment-details">
+              <div className="form-group">
+                <label htmlFor="paymentScreenshot">Payment Screenshot</label>
+                <input
+                  id="paymentScreenshot"
+                  name="paymentScreenshot"
+                  type="file"
+                  onChange={handleFileChange}
+                  className="file-input"
+                />
+                {errors.paymentScreenshot && (
+                  <span className="error">{errors.paymentScreenshot}</span>
+                )}
+              </div>
+              <div className="form-group">
+                <label htmlFor="transactionId">Transaction ID</label>
+                <input
+                  id="transactionId"
+                  name="transactionId"
+                  type="text"
+                  value={formData.transactionId}
+                  onChange={handleChange}
+                />
+                {errors.transactionId && (
+                  <span className="error">{errors.transactionId}</span>
+                )}
+              </div>
+            </div>
+          </div>
+        </fieldset>
 
-            <button type="submit">Register Team</button>
-          </form>
-        </section>
-      </div>
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 }
 
-export default TeamRegistration;
+export default ValorantRegistration;
