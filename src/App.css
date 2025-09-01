@@ -1,166 +1,287 @@
+/* General Body and Root Styles */
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424; /* Fallback */
+}
+
+body {
+  margin: 0;
+}
+
+/* Page Container (Full background and centering) */
 .page-container {
   min-height: 100vh;
-  background: url("/background.png") no-repeat center center fixed;
+  background: url("/THbg5.png") no-repeat center center fixed;
   background-size: cover;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding: 2rem 1rem;
+  overflow-y: auto;
 }
 
+/* Main Registration Form Container */
 .registration-container {
-  background-color: rgba(15, 15, 15, 0.9);
-  padding: 2rem 3rem;
-  border-radius: 18px;
-  max-width: 900px; /* Wider to accommodate new layout */
+  /* This container is now transparent */
+  padding: 1.5rem 2.5rem;
+  border-radius: 12px;
+  max-width: 700px;
   width: 100%;
   color: #e0e0e0;
   font-family: "Orbitron", "Roboto", sans-serif;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 1.5rem 0;
 }
 
+/* Logo Styling */
 .logo {
-  width: 150px; /* Sets a fixed width for the logo */
-  height: auto; /* Ensures the height scales correctly to maintain aspect ratio */
-  display: block; /* Allows the use of auto margins for centering */
-  margin: 0 auto 1.5rem; /* Centers the logo horizontally and adds space below it */
+  width: 160px;
+  height: auto;
+  display: block;
+  margin: 0 auto 2rem;
+  filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.6));
 }
 
-.form-title {
-  text-align: center;
-  font-size: 2.5rem;
-  color: #ffe26a;
-  margin-bottom: 2rem;
-  letter-spacing: 3px;
+/* General Headers */
+h2 {
+  font-size: 1.7rem;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
   text-transform: uppercase;
-}
-
-fieldset {
-  border: 1px solid #ffe26a;
-  border-radius: 12px;
-  padding: 1.5rem 2rem;
-  margin-bottom: 2rem;
-  background: rgba(30, 30, 30, 0.8);
-}
-
-legend {
   font-weight: bold;
-  font-size: 1.1rem;
-  padding: 0 0.7rem;
-  color: #ffe26a;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  text-align: center;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
 }
 
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Creates a 2-column layout */
-  gap: 1.5rem; /* Space between grid items */
+/* HOW TO REGISTER Section */
+.how-to-register-section {
+  background-color: rgba(40, 0, 0, 0.7);
+  border: 1px solid rgba(255, 0, 0, 0.6);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: inset 0 0 8px rgba(255, 0, 0, 0.3);
 }
 
+.how-to-register-section h2 {
+  color: #ff4d4d;
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+  text-shadow: none;
+}
+
+.register-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: #cccccc;
+  text-align: left;
+  line-height: 1.6;
+  font-size: 0.88rem;
+}
+
+.register-steps li {
+  margin-bottom: 0.3rem;
+}
+
+.register-steps li::before {
+  content: "— ";
+  color: #ff9999;
+  font-weight: normal;
+  margin-right: 0.5rem;
+}
+
+/* TEAM INFORMATION Section */
+.team-information-section {
+  background-color: rgba(45, 30, 0, 0.7);
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  margin-top: 2rem;
+  box-shadow: inset 0 0 8px rgba(255, 200, 0, 0.3);
+}
+
+.team-information-section h2 {
+  color: #fffdd0;
+  text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+}
+
+/* Form Groups (General) */
 .form-group {
   display: flex;
   flex-direction: column;
 }
 
 .form-group.full-width {
-  grid-column: 1 / -1; /* Makes an item span the full width of the grid */
+  grid-column: 1 / -1;
+  margin-bottom: 1rem;
 }
 
 label {
   font-weight: bold;
-  color: #ffe26a;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
+  color: #fffdd0;
+  margin-bottom: 0.4rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
+  letter-spacing: 0.8px;
 }
 
+/* Input Fields (Text, Email, Tel, Select) */
 input[type="text"],
 input[type="email"],
 input[type="tel"],
 select {
   width: 100%;
-  padding: 0.8rem;
-  border-radius: 6px;
-  border: 1px solid #555;
-  font-size: 1rem;
-  background: #f0f0f0; /* Light background for inputs */
-  color: #333; /* Dark text for inputs */
-  box-sizing: border-box; /* Important for consistent sizing */
-  transition: border-color 0.3s, box-shadow 0.3s;
+  padding: 0.6rem 0.8rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.95rem;
+  background: rgba(0, 0, 0, 0.5);
+  color: #e0e0e0;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
 }
 
 input:focus,
 select:focus {
-  border-color: #ffe26a;
-  box-shadow: 0 0 0 3px rgba(255, 226, 106, 0.4);
+  border-color: #ffcc00;
+  box-shadow: 0 0 0 2px rgba(255, 204, 0, 0.4);
   outline: none;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
-/* Payment Section Styling */
-.payment-section {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
+/* Fieldset and Legend Styles */
+fieldset {
+  border: 1px solid rgba(255, 200, 0, 0.3);
+  border-radius: 6px;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1.5rem;
+  background: rgba(0, 0, 0, 0.5);
 }
 
-.qr-container {
-  text-align: center;
-  color: #ffe26a;
-}
-
-.qr-code {
-  width: 150px;
-  height: 150px;
-  border-radius: 8px;
-  border: 2px solid #ffe26a;
-}
-
-.payment-details {
-  flex: 1;
-}
-
-.file-input {
-  padding: 0.4rem; /* Adjusted padding for file input */
-  background: #f0f0f0;
-  color: #333;
-}
-
-/* Style the file input button */
-.file-input::-webkit-file-upload-button {
-  background: #ffe26a;
-  color: #151515;
-  border: none;
-  padding: 0.6rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
+legend {
   font-weight: bold;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+  color: #ffcc00;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 3px;
 }
 
+/* Leader Row Layout */
+.leader-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.leader-row:last-of-type {
+  margin-bottom: 0;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 1rem;
+}
+
+/* Player Block (for single-column player names) */
+.player-block {
+  margin-bottom: 1.2rem;
+}
+
+.player-block:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Error Messages */
+.error {
+  color: #ff7777;
+  font-size: 0.75rem;
+  margin-top: 0.2rem;
+  display: block;
+  font-weight: normal;
+}
+
+/* Submit Button */
 button[type="submit"] {
-  background: #ffe26a;
-  color: #151515;
+  background: #ff0000;
+  color: #ffffff;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 1.1rem;
   font-weight: bold;
   padding: 0.9rem 2.5rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
   cursor: pointer;
   width: 100%;
-  transition: background 0.3s ease, transform 0.2s ease;
+  text-transform: uppercase;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s;
+  box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
 }
 
 button[type="submit"]:hover {
-  background: #ffd600;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 226, 106, 0.4);
+  background: #cc0000;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 0, 0, 0.6);
 }
 
-.error {
-  color: #ff5555;
-  font-size: 0.85rem;
-  margin-top: 0.4rem;
-  font-weight: normal;
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .registration-container {
+    padding: 1rem;
+    max-width: 95%;
+  }
+
+  .form-title {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  .how-to-register-section h2 {
+    font-size: 1.2rem;
+  }
+
+  .register-steps {
+    font-size: 0.8rem;
+  }
+
+  .leader-row,
+  .leader-row:last-of-type {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    margin-top: 0.8rem;
+  }
+
+  label {
+    font-size: 0.8rem;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.9rem;
+  }
+
+  fieldset {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  legend {
+    font-size: 0.9rem;
+  }
+
+  button[type="submit"] {
+    font-size: 1rem;
+    padding: 0.7rem 1.5rem;
+    margin-top: 1.5rem;
+  }
 }

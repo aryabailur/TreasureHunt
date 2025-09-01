@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
 
-// These can be kept for the dropdowns
 const years = ["FE", "SE", "TE", "BE"];
 const branches = [
   "COMPUTER ENGINEERING(COMPS)",
@@ -11,17 +10,15 @@ const branches = [
   "ELECTRONICS AND TELECOMMUNICATION(EXTC)",
 ];
 
-function ValorantRegistration() {
+function TeamRegistration() {
   const [formData, setFormData] = useState({
-    partyName: "",
+    teamName: "",
     leaderName: "",
     leaderYear: "",
     leaderBranch: "",
     leaderEmail: "",
     leaderPhone: "",
     players: Array(4).fill(""), // 4 players, name only
-    paymentScreenshot: null,
-    transactionId: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -37,31 +34,23 @@ function ValorantRegistration() {
     setFormData((prevData) => ({ ...prevData, players: newPlayers }));
   };
 
-  const handleFileChange = (e) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      paymentScreenshot: e.target.files[0],
-    }));
-  };
-
   const validate = () => {
     const newErrors = {};
-    if (!formData.partyName) newErrors.partyName = "Party name is required";
-    if (!formData.leaderName) newErrors.leaderName = "Leader name is required";
-    if (!formData.leaderEmail) newErrors.leaderEmail = "Email is required";
-    if (!/^\d{10}$/.test(formData.leaderPhone))
+    if (!formData.teamName) newErrors.teamName = "Team name required";
+    if (!formData.leaderName) newErrors.leaderName = "Leader name required";
+    if (!formData.leaderYear) newErrors.leaderYear = "Year required";
+    if (!formData.leaderBranch) newErrors.leaderBranch = "Branch required";
+    if (!formData.leaderEmail) newErrors.leaderEmail = "Email required";
+    else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.leaderEmail))
+      newErrors.leaderEmail = "Invalid email";
+    if (!formData.leaderPhone) newErrors.leaderPhone = "Phone required";
+    else if (!/^\d{10}$/.test(formData.leaderPhone))
       newErrors.leaderPhone = "Phone must be 10 digits";
 
     formData.players.forEach((player, idx) => {
       if (!player)
-        newErrors[`player${idx}`] = `Player ${idx + 1} name is required`;
+        newErrors[`player${idx}Name`] = `Player ${idx + 1} name required`;
     });
-
-    if (!formData.paymentScreenshot)
-      newErrors.paymentScreenshot = "Payment screenshot is required";
-    if (!formData.transactionId)
-      newErrors.transactionId = "Transaction ID is required";
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -69,8 +58,8 @@ function ValorantRegistration() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      console.log("Form Submitted:", formData);
-      alert("Registration successful!");
+      alert("Form submitted!");
+      console.log("Form Data:", formData);
     }
   };
 
@@ -81,170 +70,151 @@ function ValorantRegistration() {
         onSubmit={handleSubmit}
         noValidate
       >
-        {/* This img tag now has the correct className to apply sizing */}
-        <img src="/logo.png" alt="Event Logo" className="logo" />
+        <img className="logo" src="/logo.png" alt="Event Logo" />
 
-        <h1 className="form-title">Valorant Registration</h1>
+        <section className="how-to-register-section">
+          <h2>HOW TO REGISTER</h2>
+          <ul className="register-steps">
+            <li>Step 1: Enter your team name.</li>
+            <li>Step 2: Fill in the Team Leader's details.</li>
+            <li>Step 3: Enter details for 4 additional team members.</li>
+            <li>Step 4: Click "Register Team".</li>
+          </ul>
+        </section>
 
-        <fieldset>
-          <legend>Leader Details</legend>
-          <div className="form-grid">
-            <div className="form-group full-width">
-              <label htmlFor="partyName">Party Name</label>
-              <input
-                id="partyName"
-                name="partyName"
-                type="text"
-                value={formData.partyName}
-                onChange={handleChange}
-              />
-              {errors.partyName && (
-                <span className="error">{errors.partyName}</span>
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="leaderName">Name</label>
-              <input
-                id="leaderName"
-                name="leaderName"
-                type="text"
-                value={formData.leaderName}
-                onChange={handleChange}
-              />
-              {errors.leaderName && (
-                <span className="error">{errors.leaderName}</span>
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="leaderPhone">Phone</label>
-              <input
-                id="leaderPhone"
-                name="leaderPhone"
-                type="tel"
-                value={formData.leaderPhone}
-                onChange={handleChange}
-              />
-              {errors.leaderPhone && (
-                <span className="error">{errors.leaderPhone}</span>
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="leaderYear">Year</label>
-              <select
-                id="leaderYear"
-                name="leaderYear"
-                value={formData.leaderYear}
-                onChange={handleChange}
-              >
-                <option value="">Select Year</option>
-                {years.map((y) => (
-                  <option key={y} value={y}>
-                    {y}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="leaderBranch">Branch</label>
-              <select
-                id="leaderBranch"
-                name="leaderBranch"
-                value={formData.leaderBranch}
-                onChange={handleChange}
-              >
-                <option value="">Select Branch</option>
-                {branches.map((b) => (
-                  <option key={b} value={b}>
-                    {b}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="form-group full-width">
-              <label htmlFor="leaderEmail">Email</label>
-              <input
-                id="leaderEmail"
-                name="leaderEmail"
-                type="email"
-                value={formData.leaderEmail}
-                onChange={handleChange}
-              />
-              {errors.leaderEmail && (
-                <span className="error">{errors.leaderEmail}</span>
-              )}
-            </div>
+        <section className="team-information-section">
+          <h2>TEAM INFORMATION</h2>
+
+          <div className="form-group full-width">
+            <label htmlFor="teamName">TEAM NAME</label>
+            <input
+              id="teamName"
+              name="teamName"
+              type="text"
+              value={formData.teamName}
+              onChange={handleChange}
+            />
+            {errors.teamName && (
+              <span className="error">{errors.teamName}</span>
+            )}
           </div>
-        </fieldset>
 
-        <fieldset>
-          <legend>Party Details</legend>
-          <div className="form-grid">
-            {formData.players.map((player, index) => (
-              <div className="form-group" key={index}>
-                <label htmlFor={`player${index}`}>
-                  Player {index + 1} Name
-                </label>
+          {/* THIS SECTION HAS BEEN RESTORED */}
+          <fieldset className="leader-details-fieldset">
+            <legend>TEAM LEADER DETAILS</legend>
+            <div className="leader-row">
+              <div className="form-group leader-name">
+                <label htmlFor="leaderName">NAME</label>
                 <input
-                  id={`player${index}`}
-                  name={`player${index}`}
+                  id="leaderName"
+                  name="leaderName"
                   type="text"
-                  value={player}
-                  onChange={(e) => handlePlayerChange(e, index)}
-                />
-                {errors[`player${index}`] && (
-                  <span className="error">{errors[`player${index}`]}</span>
-                )}
-              </div>
-            ))}
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>Payment</legend>
-          <div className="payment-section">
-            <div className="qr-container">
-              <img
-                src="/qr-code.png"
-                alt="QR Code for payment"
-                className="qr-code"
-              />
-              <p>Scan to pay</p>
-            </div>
-            <div className="payment-details">
-              <div className="form-group">
-                <label htmlFor="paymentScreenshot">Payment Screenshot</label>
-                <input
-                  id="paymentScreenshot"
-                  name="paymentScreenshot"
-                  type="file"
-                  onChange={handleFileChange}
-                  className="file-input"
-                />
-                {errors.paymentScreenshot && (
-                  <span className="error">{errors.paymentScreenshot}</span>
-                )}
-              </div>
-              <div className="form-group">
-                <label htmlFor="transactionId">Transaction ID</label>
-                <input
-                  id="transactionId"
-                  name="transactionId"
-                  type="text"
-                  value={formData.transactionId}
+                  value={formData.leaderName}
                   onChange={handleChange}
                 />
-                {errors.transactionId && (
-                  <span className="error">{errors.transactionId}</span>
+                {errors.leaderName && (
+                  <span className="error">{errors.leaderName}</span>
+                )}
+              </div>
+              <div className="form-group leader-year">
+                <label htmlFor="leaderYear">YEAR</label>
+                <select
+                  id="leaderYear"
+                  name="leaderYear"
+                  value={formData.leaderYear}
+                  onChange={handleChange}
+                >
+                  <option value="">Select</option>
+                  {years.map((y) => (
+                    <option key={y} value={y}>
+                      {y}
+                    </option>
+                  ))}
+                </select>
+                {errors.leaderYear && (
+                  <span className="error">{errors.leaderYear}</span>
+                )}
+              </div>
+              <div className="form-group leader-branch">
+                <label htmlFor="leaderBranch">BRANCH</label>
+                <select
+                  id="leaderBranch"
+                  name="leaderBranch"
+                  value={formData.leaderBranch}
+                  onChange={handleChange}
+                >
+                  <option value="">Select</option>
+                  {branches.map((b) => (
+                    <option key={b} value={b}>
+                      {b}
+                    </option>
+                  ))}
+                </select>
+                {errors.leaderBranch && (
+                  <span className="error">{errors.leaderBranch}</span>
                 )}
               </div>
             </div>
-          </div>
-        </fieldset>
+            <div className="leader-row">
+              <div className="form-group leader-email">
+                <label htmlFor="leaderEmail">EMAIL</label>
+                <input
+                  id="leaderEmail"
+                  name="leaderEmail"
+                  type="email"
+                  value={formData.leaderEmail}
+                  onChange={handleChange}
+                />
+                {errors.leaderEmail && (
+                  <span className="error">{errors.leaderEmail}</span>
+                )}
+              </div>
+              <div className="form-group leader-phone">
+                <label htmlFor="leaderPhone">PHONE NO.</label>
+                <input
+                  id="leaderPhone"
+                  name="leaderPhone"
+                  type="tel"
+                  value={formData.leaderPhone}
+                  onChange={handleChange}
+                />
+                {errors.leaderPhone && (
+                  <span className="error">{errors.leaderPhone}</span>
+                )}
+              </div>
+            </div>
+          </fieldset>
 
-        <button type="submit">Submit</button>
+          <fieldset className="players-details-fieldset">
+            <legend>PLAYERS DETAILS</legend>
+            {formData.players.map((player, index) => (
+              <div className="player-block" key={index}>
+                <div className="form-group">
+                  <label htmlFor={`playerName${index}`}>
+                    PLAYER {index + 1} NAME
+                  </label>
+                  <input
+                    id={`playerName${index}`}
+                    name={`playerName${index}`}
+                    type="text"
+                    value={player}
+                    onChange={(e) => handlePlayerChange(e, index)}
+                  />
+                  {errors[`player${index}Name`] && (
+                    <span className="error">
+                      {errors[`player${index}Name`]}
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </fieldset>
+
+          <button type="submit">REGISTER TEAM</button>
+        </section>
       </form>
     </div>
   );
 }
 
-export default ValorantRegistration;
+export default TeamRegistration;
