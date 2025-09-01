@@ -1,0 +1,115 @@
+/* This new class handles the full-page background and centers the content */
+.page-container {
+  min-height: 100vh;
+  background: url("/background.png") no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+/* This is the corrected form container */
+.registration-container {
+  /* ADDED: A semi-transparent background for the form itself */
+  background-color: rgba(21, 21, 21, 0.85);
+  padding: 2rem 1rem;
+  border-radius: 16px;
+  max-width: 600px;
+  color: #ffe26a;
+  font-family: "Orbitron", "Roboto", sans-serif;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+  /* REMOVED: Redundant background and margin properties are gone */
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.logo {
+  width: 120px;
+  margin: 0 auto 1rem;
+  display: block;
+}
+
+.register-steps {
+  list-style: inside disc;
+  padding: 0 0 1rem 0;
+  color: #fff;
+}
+
+.team-info h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
+
+.team-name-section {
+  margin-bottom: 2rem;
+}
+
+.team-name-section input,
+.leader-details input,
+.leader-details select,
+.players-details input,
+.players-details select {
+  display: block;
+  width: calc(100% - 1rem);
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+  background: #222;
+  color: #ffe26a;
+}
+
+fieldset {
+  border: 2px solid #ffe26a;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  background: rgba(30, 30, 30, 0.7);
+}
+
+legend {
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+
+label {
+  font-weight: bold;
+  color: #ffe26a;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.player-block {
+  margin-top: 1rem;
+}
+
+button[type="submit"] {
+  background: #ffe26a;
+  color: #151515;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.75rem 2rem;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background: #ffd600;
+}
+
+.error {
+  color: #ff3535;
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+  margin-top: -0.7rem;
+  display: block;
+}
