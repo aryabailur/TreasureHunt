@@ -1,6 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;500&display=swap");
+
 /* General Body and Root Styles */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Roboto", system-ui, Avenir, Helvetica, Arial, sans-serif; /* Set Roboto as base font */
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
@@ -26,13 +28,12 @@ body {
 
 /* Main Registration Form Container */
 .registration-container {
-  /* This container is now transparent */
   padding: 1.5rem 2.5rem;
   border-radius: 12px;
   max-width: 700px;
   width: 100%;
   color: #e0e0e0;
-  font-family: "Orbitron", "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif; /* Set default form font to Roboto */
   margin: 1.5rem 0;
 }
 
@@ -47,19 +48,20 @@ body {
 
 /* General Headers */
 h2 {
+  font-family: "Orbitron", sans-serif; /* Use Orbitron for headings */
   font-size: 1.7rem;
   color: #ffffff;
   margin-bottom: 1rem;
   letter-spacing: 2px;
   text-transform: uppercase;
-  font-weight: bold;
+  font-weight: 700; /* Bolder weight for Orbitron */
   text-align: center;
   text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
 }
 
 /* HOW TO REGISTER Section */
 .how-to-register-section {
-  background-color: rgba(40, 0, 0, 0.7);
+  background-color: rgba(40, 0, 0, 0.8);
   border: 1px solid rgba(255, 0, 0, 0.6);
   padding: 1rem 1.5rem;
   border-radius: 8px;
@@ -81,7 +83,7 @@ h2 {
   color: #cccccc;
   text-align: left;
   line-height: 1.6;
-  font-size: 0.88rem;
+  font-size: 0.9rem; /* Slightly larger for readability */
 }
 
 .register-steps li {
@@ -97,7 +99,7 @@ h2 {
 
 /* TEAM INFORMATION Section */
 .team-information-section {
-  background-color: rgba(45, 30, 0, 0.7);
+  background-color: rgba(45, 30, 0, 0.8);
   border-radius: 8px;
   padding: 1.5rem 2rem;
   margin-top: 2rem;
@@ -121,7 +123,7 @@ h2 {
 }
 
 label {
-  font-weight: bold;
+  font-weight: 500; /* Medium weight for Roboto labels */
   color: #fffdd0;
   margin-bottom: 0.4rem;
   font-size: 0.85rem;
@@ -143,6 +145,7 @@ select {
   color: #e0e0e0;
   box-sizing: border-box;
   transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+  font-family: "Roboto", sans-serif; /* Ensure inputs use Roboto */
 }
 
 input:focus,
@@ -163,7 +166,8 @@ fieldset {
 }
 
 legend {
-  font-weight: bold;
+  font-family: "Orbitron", sans-serif; /* Use Orbitron for legends */
+  font-weight: 700;
   font-size: 1rem;
   padding: 0 0.5rem;
   color: #ffcc00;
@@ -196,6 +200,72 @@ legend {
   margin-bottom: 0;
 }
 
+/* --- PAYMENT SECTION STYLES --- */
+
+.payment-layout {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.qr-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.qr-code-image {
+  width: 150px;
+  height: 150px;
+  border: 2px solid #ffcc00;
+  border-radius: 8px;
+}
+
+.upi-redirect-button {
+  background: #ffcc00;
+  color: #151515;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500; /* Medium weight for button text */
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+.upi-redirect-button:hover {
+  background: #e6b800;
+}
+
+.upload-section {
+  flex: 1; /* Takes up the remaining space */
+}
+
+.file-input {
+  width: 100%;
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.file-input::file-selector-button {
+  background: #ffcc00;
+  color: #151515;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-right: 1rem;
+  transition: background 0.3s ease;
+}
+
+.file-input::file-selector-button:hover {
+  background: #e6b800;
+}
+
 /* Error Messages */
 .error {
   color: #ff7777;
@@ -212,7 +282,8 @@ button[type="submit"] {
   border: none;
   border-radius: 8px;
   font-size: 1.1rem;
-  font-weight: bold;
+  font-family: "Orbitron", sans-serif; /* Use Orbitron for the main button */
+  font-weight: 700;
   padding: 0.9rem 2.5rem;
   margin-top: 2rem;
   cursor: pointer;
@@ -228,15 +299,36 @@ button[type="submit"]:hover {
   box-shadow: 0 6px 20px rgba(255, 0, 0, 0.6);
 }
 
+.success-message {
+  background-color: rgba(0, 0, 0, 0.85);
+  border: 1px solid #ffe26a;
+  border-radius: 12px;
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #fffdd0;
+  box-shadow: 0 0 25px rgba(255, 226, 106, 0.3);
+}
+
+.success-message h2 {
+  font-size: 2.5rem;
+  color: #ffe26a;
+  text-shadow: 0 0 15px rgba(255, 226, 106, 0.8);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.success-message p {
+  font-size: 1.2rem;
+  color: #f0f0f0;
+  line-height: 1.6;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+}
+
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   .registration-container {
     padding: 1rem;
     max-width: 95%;
-  }
-
-  .form-title {
-    font-size: 1.8rem;
   }
 
   h2 {
@@ -256,6 +348,10 @@ button[type="submit"]:hover {
     grid-template-columns: 1fr;
     gap: 0.8rem;
     margin-top: 0.8rem;
+  }
+
+  .payment-layout {
+    flex-direction: column;
   }
 
   label {
