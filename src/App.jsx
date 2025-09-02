@@ -49,7 +49,11 @@ function TeamRegistration() {
   const validate = () => {
     const newErrors = {};
     if (!formData.teamName) newErrors.teamName = "Team name required";
-    if (!formData.leaderName) newErrors.leaderName = "Leader name required";
+    if (!formData.leaderName) {
+      newErrors.leaderName = "Leader name required";
+    } else if (formData.leaderName.length <= 2) {
+      newErrors.leaderName = "Name must be more than 2 letters";
+    }
     if (!formData.leaderYear) newErrors.leaderYear = "Year required";
     if (!formData.leaderBranch) newErrors.leaderBranch = "Branch required";
     if (!formData.leaderEmail) newErrors.leaderEmail = "Email required";
@@ -62,9 +66,13 @@ function TeamRegistration() {
     });
 
     // Validation for the new payment screenshot field
-    if (!formData.paymentScreenshot) {
-      newErrors.paymentScreenshot = "Payment screenshot is required";
-    }
+    formData.players.forEach((player, idx) => {
+      if (!player) {
+        newErrors[`player${idx}Name`] = `Player ${idx + 1} name is required`;
+      } else if (player.length <= 2) {
+        newErrors[`player${idx}Name`] = "Name must be more than 2 letters";
+      }
+    });
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;

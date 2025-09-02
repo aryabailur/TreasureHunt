@@ -326,6 +326,9 @@ button[type="submit"]:hover {
 
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
+  .page-container {
+    background-position: 40%;
+  }
   .registration-container {
     padding: 1rem;
     max-width: 95%;
@@ -379,5 +382,19 @@ button[type="submit"]:hover {
     font-size: 1rem;
     padding: 0.7rem 1.5rem;
     margin-top: 1.5rem;
+  }
+  /* Add this inside your @media block */
+  .success-message h2 {
+    font-size: 1.8rem;
+  }
+
+  /* Also add this inside the @media block */
+  .success-message p {
+    font-size: 1rem; /* A bit smaller than the desktop's 1.2rem */
+  }
+
+  /* And finally, add this for the container itself inside the @media block */
+  .success-message {
+    padding: 3rem 1.5rem; /* Less vertical and horizontal padding */
   }
 }
